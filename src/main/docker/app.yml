@@ -1,0 +1,16 @@
+version: '2'
+services:
+  shipmanagement-app:
+    image: shipmanagement
+    environment:
+      - _JAVA_OPTIONS=-Xmx512m -Xms256m
+      - SPRING_PROFILES_ACTIVE=prod,swagger
+      - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
+      - SPRING_DATASOURCE_URL=jdbc:mysql://shipmanagement-mysql:3306/shipmanagement?useUnicode=true&characterEncoding=utf8&useSSL=false
+      - JHIPSTER_SLEEP=30 # gives time for other services to boot before the application
+    ports:
+      - 80:80
+  shipmanagement-mysql:
+    extends:
+      file: mysql.yml
+      service: shipmanagement-mysql
